@@ -8,10 +8,12 @@ class Storage:
         self.path = path
 
     def load(self):
-        with open(self) as s:
-            content = s.read(self.path)
-            collection = TaskListCollection.model_validate_json(content)
-        return collection
+        try:
+            with open(self.path) as s:
+                content = s.read()
+            return TaskListCollection.model_validate_json(content)
+        except FileNotFoundError:
+            return TaskListCollection()
 
     def save(self, collection: TaskListCollection):
         with open(self.path, "w", encoding="utf-8") as s:
