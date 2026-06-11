@@ -20,6 +20,10 @@ class Task(BaseModel):
 
 class ListOfTask(BaseModel):
     id: int
-    list_task: list[Task] = []
+    list_task: list[Task]
     status: Status = Status.NEW
-    created_at: datetime = datetime.now()
+    created_at: datetime
+
+
+class TaskListCollection(BaseModel):
+    task_groups: list[ListOfTask]
